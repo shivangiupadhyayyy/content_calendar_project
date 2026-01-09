@@ -4,7 +4,7 @@ import random
 from datetime import datetime, timedelta
 import os
 
-# Configuration
+
 BRANDS = {
     'TechNova': 'Technology',
     'FitLife_India': 'Fitness',
@@ -26,12 +26,12 @@ def generate_mock_csvs():
     
     for brand, niche in BRANDS.items():
         data = []
-        # Generate 50 historical posts per brand
+        
         for i in range(50):
             date_posted = datetime.now() - timedelta(days=random.randint(1, 180))
             p_type = random.choice(POST_TYPES)
             
-            # Simulate engagement logic (Reels get more reach)
+            
             base_likes = random.randint(50, 500)
             if p_type == 'reel':
                 base_likes *= 2.5
@@ -54,4 +54,5 @@ def generate_mock_csvs():
         print(f"Generated data for {brand}")
 
 if __name__ == "__main__":
+
     generate_mock_csvs()
