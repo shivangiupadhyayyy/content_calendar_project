@@ -19,7 +19,7 @@ class TrendsEngine:
             if data.empty:
                 raise Exception("Empty response from Google Trends")
             
-            # Calculate average interest to find the hottest topic
+            
             trend_scores = data.mean().sort_values(ascending=False).to_dict()
             return trend_scores
             
@@ -40,4 +40,5 @@ class TrendsEngine:
                 return related[keyword]['rising']['query'].head(3).tolist()
         except:
             pass
+
         return [f"Best {keyword} tips", f"{keyword} 2024 trends", f"How to {keyword}"]
