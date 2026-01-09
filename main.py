@@ -8,12 +8,12 @@ from datetime import datetime
 def main():
     print("=== Automated Content Calendar Generator ===")
     
-    # 1. Setup paths
+    
     input_path = 'data/raw_instagram'
     output_path = 'data/output'
     os.makedirs(output_path, exist_ok=True)
 
-    # 2. Load Data
+    
     print("[1/5] Loading Brand Data...")
     try:
         loader = DataLoader(input_path)
@@ -23,18 +23,18 @@ def main():
         print(f"Error: {e}")
         return
 
-    # 3. Initialize Engines
+    
     print("[2/5] Initializing Analytics & Trends Engines...")
     analytics = AnalyticsEngine(full_data)
-    trends = TrendsEngine(geo='IN') # Setting region to India
+    trends = TrendsEngine(geo='IN') 
 
-    # 4. Generate Calendar
+    
     print("[3/5] Generating Content Logic (This may take a moment)...")
     generator = CalendarGenerator(start_date=datetime.now(), days=30)
     
     calendar_df = generator.create_calendar(full_data, analytics, trends)
 
-    # 5. Export
+    
     timestamp = datetime.now().strftime('%Y%m%d_%H%M')
     output_file = f"{output_path}/Generated_Content_Calendar_{timestamp}.csv"
     
@@ -46,4 +46,5 @@ def main():
     print(calendar_df[['Date', 'Brand Name', 'Content Idea']].head())
 
 if __name__ == "__main__":
+
     main()
