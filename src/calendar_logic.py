@@ -32,28 +32,27 @@ class CalendarGenerator:
                 content_type = ""
                 content_idea = ""
                 source = ""
-                ref_url = ""      # NEW Column
-                location_tip = "" # NEW Column
+                ref_url = ""     
+                location_tip = "" 
 
                 if is_trend_day:
-                    # Google Trends Logic
+                    
                     related_queries = trend_engine.get_related_queries(niche)
                     trend_topic = random.choice(related_queries)
                     content_idea = f"Trend Alert: Discussing '{trend_topic}'"
                     source = "Google Trends"
                     content_type = "Reel" 
                 else:
-                    # Historical Data Logic (Ab URL bhi use karega)
-                    # Pick a random top performer object
+                    
                     best_post = random.choice(perf_metrics['top_themes'])
                     
                     historical_caption = str(best_post['caption'])
                     short_theme = (historical_caption[:40] + '..') if len(historical_caption) > 40 else historical_caption
                     
                     content_idea = f"Repurpose Hit: {short_theme}"
-                    ref_url = best_post['url']  # Link to original post
+                    ref_url = best_post['url']
                     
-                    # Agar location thi, toh suggest karo
+                    
                     if best_post['location'] and str(best_post['location']) != 'nan':
                         location_tip = f"Tag Location: {best_post['location']}"
                     
@@ -69,11 +68,12 @@ class CalendarGenerator:
                     'Platform': 'Instagram',
                     'Content Type': content_type,
                     'Content Idea': content_idea,
-                    'Ref URL': ref_url,           # <-- User can click here
-                    'Location Tip': location_tip, # <-- User knows where to tag
+                    'Ref URL': ref_url,
+                    'Location Tip': location_tip, 
                     'Caption Hook': self.generate_caption(content_idea.split(': ')[-1], niche),
                     'Hashtags': f"#{niche} #{content_type} #fyp",
                     'Trend Source': source
                 })
+
 
         return pd.DataFrame(calendar_rows)
